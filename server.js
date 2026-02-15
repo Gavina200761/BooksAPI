@@ -21,7 +21,6 @@ let books = [
         genre: "Dystopian Fiction",
         copiesAvailable: 7
     }
-    // Add more books if you'd like!
 ];
 
 /* Create your REST API here with the following endpoints:
@@ -32,8 +31,22 @@ let books = [
     'DELETE /api/books/:id': 'Delete a book'
 */
 
+const express = require('express');
+const app = express();
 
+// this piece parses JSON bodies
+app.use(express.json());
 
+// this is the basic root route
+app.get('/', (req, res) => res.send('Books API'));
+
+// this starts the server on port 3000
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
+
+module.exports = app;
 
 
 
