@@ -24,8 +24,6 @@ let books = [
 ];
 
 /* Create your REST API here with the following endpoints:
-    'GET /api/books': 'Get all books',
-    'GET /api/books/:id': 'Get a specific book',
     'POST /api/books': 'Add a new book',
     'PUT /api/books/:id': 'Update a book',
     'DELETE /api/books/:id': 'Delete a book'
@@ -36,6 +34,19 @@ const app = express();
 
 // this piece parses JSON bodies
 app.use(express.json());
+
+// GET /api/books - Retrieve all books
+app.get('/api/books', (req, res) => {
+  res.json(books);
+});
+
+// GET /api/books/:id - Retrieve a specific book by ID
+app.get('/api/books/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const book = books.find(b => b.id === id);
+  if (!book) return res.status(404).json({ error: 'Book not found' });
+  res.json(book);
+});
 
 // this is the basic root route
 app.get('/', (req, res) => res.send('Books API'));
